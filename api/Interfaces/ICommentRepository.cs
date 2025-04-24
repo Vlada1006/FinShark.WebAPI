@@ -13,5 +13,6 @@ namespace api.Interfaces
         Task<Comment?> GetByIdAsync(int id);
         Task<Comment> CreateCommentAsync(Comment commenModel);
         Task<Comment?> UpdateCommentAsync(int id, UpdateCommentRequestDTO commentDTO);
+        Task<Comment?> DeleteCommentAsync(int id);
     }
 }
