@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using api.Data;
 using api.Interfaces;
 using api.Models;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 
 namespace api.Repositories
@@ -20,6 +21,17 @@ namespace api.Repositories
         public async Task<List<Comment>> GetAllAsync()
         {
             return await _db.Comments.ToListAsync();
+        }
+
+        public async Task<Comment?> GetByIdAsync(int id)
+        {
+            var comment = await _db.Comments.FirstOrDefaultAsync(u => u.CommentId == id);
+            if (comment == null)
+            {
+                return null;
+            }
+
+            return comment;
         }
     }
 }

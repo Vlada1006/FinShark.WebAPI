@@ -20,12 +20,12 @@ namespace api.Repositories
 
         public async Task<List<Stock>> GetAllAsync()
         {
-            return await _db.Stocks.ToListAsync();
+            return await _db.Stocks.Include(u => u.Comments).ToListAsync();
         }
 
         public async Task<Stock?> GetByIdAsync(int id)
         {
-            return await _db.Stocks.FirstOrDefaultAsync(u => u.StockId == id);
+            return await _db.Stocks.Include(u => u.Comments).FirstOrDefaultAsync(u => u.StockId == id);
         }
 
         public async Task<Stock> CreateAsync(Stock stockModel)
