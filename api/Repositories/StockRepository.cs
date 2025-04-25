@@ -33,6 +33,20 @@ namespace api.Repositories
             {
                 stocks = stocks.Where(u => u.Symbol.Contains(query.Symbol));
             }
+
+            if (!string.IsNullOrWhiteSpace(query.SortBy))
+            {
+                if (query.SortBy.Equals("Symbol", StringComparison.OrdinalIgnoreCase))
+                {
+                    stocks = query.IsDescending ? stocks.OrderByDescending(u => u.Symbol) : stocks.OrderBy(u => u.Symbol);
+                }
+
+                if (query.SortBy.Equals("CompanyName", StringComparison.OrdinalIgnoreCase))
+                {
+                    stocks = query.IsDescending ? stocks.OrderByDescending(u => u.CompanyName) : stocks.OrderBy(u => u.CompanyName);
+                }
+
+            }
             return await stocks.ToListAsync();
         }
 
