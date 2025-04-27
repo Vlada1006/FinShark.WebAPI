@@ -31,8 +31,8 @@ namespace api.Controllers
         public async Task<IActionResult> GetAllStocks([FromQuery] QueryObject query)
         {
             var stocks = await _stockRepo.GetAllAsync(query);
-            var stockDTO = stocks.Select(s => s.ToStockDto());
-            return Ok(stocks);
+            var stockDTO = stocks.Select(s => s.ToStockDto()).ToList();
+            return Ok(stockDTO);
         }
 
         [HttpGet]
