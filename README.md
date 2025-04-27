@@ -11,8 +11,6 @@ Stock Management
 Portfolio Management
 - Create personalized stock portfolios
 - Add and remove stocks from portfolios
-- Track portfolio performance
-- Set investment goals and track progress
 
 Comments System
 - Leave comments on stocks and portfolios
