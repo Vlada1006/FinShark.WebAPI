@@ -16,6 +16,14 @@ namespace api.Repositories
         {
             _db = db;
         }
+
+        public async Task<Portfolio> CreatePortfolioAsync(Portfolio portfolio)
+        {
+            await _db.Portfolios.AddAsync(portfolio);
+            await _db.SaveChangesAsync();
+            return portfolio;
+        }
+
         public async Task<List<Stock>> GetUserPortfolio(AppUser user)
         {
             return await _db.Portfolios.Where(u => u.AppUserId == user.Id)
