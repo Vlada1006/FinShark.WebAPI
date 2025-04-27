@@ -4,9 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using api.Data;
 using api.DTOs.Comment;
+using api.Helpers;
 using api.Interfaces;
 using api.Models;
 using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace api.Repositories
@@ -26,9 +28,21 @@ namespace api.Repositories
             return commenModel;
         }
 
-        public async Task<List<Comment>> GetAllAsync()
+        public async Task<List<Comment>> GetAllAsync(CommentQueryObject queryObject)
         {
-            return await _db.Comments.Include(u => u.AppUser).ToListAsync();
+            var comments = _db.Comments.Include(u => u.AppUser).AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(queryObject.Symbol))
+            {
+                comments = comments.Where(u => u.Stock.Symbol == queryObject.Symbol);
+            }
+
+            if (!queryObject.IsDecsending == true)
+            {
+                comments = comments.OrderByDescending(u => u.CreatedOn);
+            }
+
+            return await comments.ToListAsync();
         }
 
         public async Task<Comment?> GetByIdAsync(int id)
