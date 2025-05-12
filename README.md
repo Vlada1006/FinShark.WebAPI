@@ -1,5 +1,4 @@
 # FinShark WebAPI
-Overview
 FinShark is a financial Web API designed to help users manage and track stocks for companies. It provides robust functionality for creating portfolios, adding stocks, and engaging with community feedback through a comment system.
 
 # Features
